@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartCity.Domain\SmartCity.Domain.csproj" />
+    <ProjectReference Include="..\SmartCity.Infrastructure\SmartCity.Infrastructure.csproj" />
+    <ProjectReference Include="..\SmartCity.Service\SmartCity.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\AppUsers\Commands\Results\" />
+    <Folder Include="Features\Auth\Queries\Results\" />
+    <Folder Include="Features\Devices\Commands\Handlers\" />
+    <Folder Include="Features\Devices\Commands\Models\" />
+    <Folder Include="Features\Devices\Commands\Validations\" />
+    <Folder Include="Features\ResponseUnits\Commands\Results\Admin\" />
+    <Folder Include="Mapping\Devices\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="13.0.0" />
+  </ItemGroup>
+
+</Project>
