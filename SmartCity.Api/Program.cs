@@ -13,6 +13,7 @@ namespace SmartCity.Api
 {
     public class Program
     {
+        //nourhan
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
