@@ -1,22 +1,31 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Hangfire;
+using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.EntityFrameworkCore;
 using SmartCity.AppCore;
 using SmartCity.AppCore.Middleware;
+using SmartCity.Domain.Helper;
 using SmartCity.Infrastructure;
 using SmartCity.Infrastructure.Data;
 using SmartCity.Infrastructure.Seeder;
 using SmartCity.Service;
 using SmartCity.Service.Abstracts;
+using SmartCity.Service.Implementations;
+using SmartCity.Service.Implementations.Firebase;
 using System.Text.Json.Serialization;
+
 
 namespace SmartCity.Api
 {
     public class Program
     {
         //nourhan
+        //hoda
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
 
             // Add services to the container.
 
@@ -51,6 +60,8 @@ namespace SmartCity.Api
             builder.Services.AddHangfireServer();
 
 
+
+             
             #region Dependancy Injection
 
             builder.Services.AddInfrastructureDependancies()
@@ -60,6 +71,19 @@ namespace SmartCity.Api
 
 
             #endregion
+
+            builder.Services.Configure<FirebaseRealtimeConfig>(
+            builder.Configuration.GetSection("FirebaseRealtime")
+);
+            builder.Services.AddSingleton<IFirebaseAccessTokenProvider, GoogleAccessTokenProvider>();
+
+            builder.Services.AddHttpClient("FirebaseRealtime", client =>
+            {
+                client.Timeout = TimeSpan.FromSeconds(10);
+            });
+            builder.Services.AddHostedService<SmartCity.Service.Implementations.FirebaseRealtimePollingService>();
+
+            //builder.Services.AddHostedService<FirebaseRealtimePollingService>();
 
             var app = builder.Build();
 
