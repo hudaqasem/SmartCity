@@ -59,9 +59,19 @@ namespace SmartCity.Api
 
             builder.Services.AddHangfireServer();
 
+            // frontend
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
 
 
-             
             #region Dependancy Injection
 
             builder.Services.AddInfrastructureDependancies()
@@ -92,8 +102,11 @@ namespace SmartCity.Api
             {
 
                 var serviceProvider = scope.ServiceProvider;
-
-                // 1. Run Identity Seed (Roles and Admin User)
+                // --- «·”ÿ—Ì‰ œÊ· Â„« «·Õ· ---
+               // var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+               // context.Database.Migrate(); // œÂ ÂÌ⁄„· Update-Database √Ê Ê„« Ìﬂ √Ê· „« «·„Êﬁ⁄ Ì› Õ
+                                            // ----------------------------
+                                            // 1. Run Identity Seed (Roles and Admin User)
                 IdentitySeed.SeedRolesAndAdmin(serviceProvider).Wait();
 
                 // 2. Run Response Incident Seed (Units, and Test Incident)
@@ -111,16 +124,19 @@ namespace SmartCity.Api
 
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
-
+            app.UseCors("AllowAll");
 
             app.UseAuthentication();
             app.UseAuthorization();
