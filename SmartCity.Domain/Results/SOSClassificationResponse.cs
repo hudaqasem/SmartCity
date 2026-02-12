@@ -1,4 +1,6 @@
-﻿namespace SmartCity.Domain.Results
+﻿using System.Text.Json.Serialization;
+
+namespace SmartCity.Domain.Results
 {
     /// <summary>
     /// Response from AI text classification (SOS detection)
@@ -6,34 +8,22 @@
     /// </summary>
     public class SOSClassificationResponse
     {
-        /// <summary>
-        /// Whether the text indicates an emergency
-        /// </summary>
+        [JsonPropertyName("is_emergency")]
         public bool IsEmergency { get; set; }
 
-        /// <summary>
-        /// Confidence score (0.0 to 1.0)
-        /// </summary>
+        [JsonPropertyName("confidence")]
         public float Confidence { get; set; }
 
-        /// <summary>
-        /// Type of incident detected from text
-        /// </summary>
+        [JsonPropertyName("incident_type")]
         public string IncidentType { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Alert severity level (HIGH, MEDIUM, LOW)
-        /// </summary>
+        [JsonPropertyName("alert_level")]
         public string AlertLevel { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Emergency keywords found in the text
-        /// </summary>
+        [JsonPropertyName("keywords_detected")]
         public List<string> KeywordsDetected { get; set; } = new();
 
-        /// <summary>
-        /// Recommended response unit type based on text analysis
-        /// </summary>
+        [JsonPropertyName("recommended_unit_type")]
         public string RecommendedUnitType { get; set; } = string.Empty;
     }
 

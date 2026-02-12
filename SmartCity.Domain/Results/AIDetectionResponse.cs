@@ -1,47 +1,30 @@
-﻿namespace SmartCity.Domain.Results
+﻿using System.Text.Json.Serialization;
+
+namespace SmartCity.Domain.Results
 {
-    /// <summary>
-    /// Response from AI image detection (fire/accident)
-    /// Matches Python FastAPI DetectionResponse model
-    /// </summary>
     public class AIDetectionResponse
     {
-        /// <summary>
-        /// Whether the incident was detected in the image
-        /// </summary>
+        [JsonPropertyName("detected")]
         public bool Detected { get; set; }
 
-        /// <summary>
-        /// Confidence score (0.0 to 1.0)
-        /// </summary>
+        [JsonPropertyName("confidence")]
         public float Confidence { get; set; }
 
-        /// <summary>
-        /// Type of incident detected (Fire, Medical, Police)
-        /// </summary>
+        // ✅ This should match Python's response
+        [JsonPropertyName("incident_type")]
         public string IncidentType { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Alert severity level (HIGH, MEDIUM, LOW)
-        /// </summary>
+        [JsonPropertyName("alert_level")]
         public string AlertLevel { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Human-readable description of the detection
-        /// </summary>
+        [JsonPropertyName("description")]
         public string Description { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Recommended response unit type for this incident
-        /// </summary>
+        // ✅ This is what we use for unit assignment
+        [JsonPropertyName("recommended_unit_type")]
         public string RecommendedUnitType { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Optional coordinates if detected
-        /// </summary>
+        [JsonPropertyName("coordinates")]
         public Dictionary<string, double>? Coordinates { get; set; }
     }
-
-
-
 }

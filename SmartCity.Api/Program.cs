@@ -20,8 +20,6 @@ namespace SmartCity.Api
 {
     public class Program
     {
-        //nourhan
-        //hoda
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -102,9 +100,9 @@ namespace SmartCity.Api
             {
 
                 var serviceProvider = scope.ServiceProvider;
-                // --- ÇáÓØÑíä Ïæá åãÇ ÇáÍá ---
+                // --- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ---
                // var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
-               // context.Database.Migrate(); // Ïå åíÚãá Update-Database ÃæÊæãÇÊíß Ãæá ãÇ ÇáãæÞÚ íÝÊÍ
+               // context.Database.Migrate(); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Update-Database ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                                             // ----------------------------
                                             // 1. Run Identity Seed (Roles and Admin User)
                 IdentitySeed.SeedRolesAndAdmin(serviceProvider).Wait();

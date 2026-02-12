@@ -133,7 +133,7 @@ namespace SmartCity.Api.Controllers
 
             var command = new CreateIncidentWithAICommand
             {
-                Type = dto.Type,
+                Type = dto.UserReportedType,
                 Description = dto.Description,
                 Latitude = dto.Latitude,
                 Longitude = dto.Longitude,
@@ -145,6 +145,7 @@ namespace SmartCity.Api.Controllers
 
             return NewResult(await Mediator.Send(command));
         }
+
         #endregion
 
         #region AI Service Health Check
@@ -180,45 +181,32 @@ namespace SmartCity.Api.Controllers
     /// <summary>
     /// DTO for multipart/form-data requests with image upload
     /// </summary>
+    /// <summary>
+    /// DTO for multipart/form-data requests with image upload
+    /// </summary>
     public class CreateIncidentWithAIDto
     {
         /// <summary>
-        /// Incident type (Fire, Medical, Police)
+        /// OPTIONAL: User's guess of incident type
+        /// AI will override this - it's just for logging/reference
         /// </summary>
-        public string Type { get; set; } = string.Empty;
+        public string? UserReportedType { get; set; }
 
         /// <summary>
-        /// Incident description
+        /// Incident description (analyzed by AI text classifier)
         /// </summary>
         public string Description { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Location latitude
-        /// </summary>
         public double? Latitude { get; set; }
-
-        /// <summary>
-        /// Location longitude
-        /// </summary>
         public double? Longitude { get; set; }
 
         /// <summary>
-        /// Image file for AI detection
+        /// Image for AI detection (REQUIRED for accurate type detection)
         /// </summary>
         public IFormFile? Image { get; set; }
 
-        /// <summary>
-        /// Enable AI detection (default: true)
-        /// </summary>
         public bool EnableAIDetection { get; set; } = true;
-
-        /// <summary>
-        /// Minimum AI confidence threshold (0.0 to 1.0, default: 0.5)
-        /// </summary>
         public float MinimumConfidence { get; set; } = 0.5f;
     }
-
-
-
 
 }
